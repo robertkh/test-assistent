@@ -1,0 +1,8 @@
+Install the Heroku CLI. ( npm i heroku -g ) and verify ( heroku -v )
+heroku login ( or heroku login -i )
+heroku create app-name
+cd server-side
+touch .gitignore and add in it a string '/node_modules'.
+git init && $ git add . && $ git commit -m '...'
+heroku git:remote -a app-name
+git push heroku master

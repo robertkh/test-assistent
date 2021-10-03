@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 // Put all API endpoints under '/api'
 app.get("/api/user", (req, res) => {
-	res.send("hi, i am robert");
+	res.send("hi, i am again robert");
 });
 
 // The "catchall" handler: for any request that doesn't
