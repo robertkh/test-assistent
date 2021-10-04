@@ -1,8 +1,10 @@
 // todo
 import { Divider, Tag } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Collapse } from "reactstrap";
 import Mycards from "./Mycard";
 import { RightCircleTwoTone, DownCircleTwoTone } from "@ant-design/icons";
+import { useStorageContext } from "../my-hooks/StorageContext";
 
 //?
 const { CheckableTag } = Tag;
@@ -27,7 +29,7 @@ function makeSet(checkedArr, lsArr, blogMakerArr) {
 	let tagsSetMakerArr = [];
 
 	for (let i = 0; i < lsArr.length; i++) {
-		// ka ? checkedArr lsArr[i]-um
+		//
 		let is = true;
 		for (let j = 0; j < checkedArr.length; j++) {
 			if (lsArr[i].title.indexOf(checkedArr[j]) === -1) {
@@ -44,7 +46,6 @@ function makeSet(checkedArr, lsArr, blogMakerArr) {
 			blogMakerArr.push(lsArr[i]);
 		}
 	}
-	// console.log(blogMakerArr);
 
 	const tagsSet = new Set(tagsSetMakerArr);
 
@@ -57,12 +58,15 @@ function makeSet(checkedArr, lsArr, blogMakerArr) {
 // todo
 export default function HotTags(props) {
 	const [state, setState] = useState({ selected: [] });
-	const [ishoriz, setDown] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
+	const [storage, toggle] = useStorageContext();
 
 	//
 	const lsArr = props.ls;
 	const blogMakerArr = [];
 	let newSetArr = [];
+
+	console.log("hottags effect");
 
 	//
 	newSetArr = makeSet(state.selected, lsArr, blogMakerArr);
@@ -70,7 +74,6 @@ export default function HotTags(props) {
 	//
 	function handleChange(tag, checked) {
 		const { selected } = state;
-		// console.log(selected);
 
 		const selectedArr = checked
 			? [...selected, tag]
@@ -79,6 +82,10 @@ export default function HotTags(props) {
 		setState({ selected: selectedArr });
 	}
 
+	//
+	const toggle2 = () => setIsOpen(!isOpen);
+
+	//
 	const { selected } = state;
 
 	return (
@@ -92,10 +99,6 @@ export default function HotTags(props) {
 					<CheckableTag
 						key={tag}
 						checked={selected.indexOf(tag) > -1}
-						// The indexOf() method searches an array for a specified item
-						//  and returns its position.
-						// indexOf() returns -1 if the item is not found.
-
 						onChange={(checked) => {
 							handleChange(tag, checked);
 						}}
@@ -125,10 +128,10 @@ export default function HotTags(props) {
 				))}
 			</div>
 
-			<div className="border border-danger rounded p-3">
+			<div>
 				<Divider className="text-info">{`Փոստերի քանակը հավասար է ${blogMakerArr.length}`}</Divider>
 
-				{ishoriz ? (
+				{!isOpen ? (
 					<RightCircleTwoTone
 						style={{
 							position: "relative",
@@ -136,7 +139,7 @@ export default function HotTags(props) {
 							fontSize: "30px",
 							cursor: "pointer",
 						}}
-						onClick={() => setDown((pr) => !pr)}
+						onClick={toggle2}
 					/>
 				) : (
 					<DownCircleTwoTone
@@ -146,11 +149,11 @@ export default function HotTags(props) {
 							fontSize: "30px",
 							cursor: "pointer",
 						}}
-						onClick={() => setDown((pr) => !pr)}
+						onClick={toggle2}
 					/>
 				)}
-				{!ishoriz &&
-					blogMakerArr.map((el) => (
+				<Collapse isOpen={isOpen}>
+					{blogMakerArr.map((el) => (
 						<Mycards
 							key={el.time}
 							title={el.title}
@@ -159,6 +162,7 @@ export default function HotTags(props) {
 							id={el.time}
 						/>
 					))}
+				</Collapse>
 			</div>
 		</>
 	);

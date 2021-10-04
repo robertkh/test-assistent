@@ -1,7 +1,7 @@
 // todo
-import { Divider, Tag } from "antd";
-import { EditOutlined, FolderAddTwoTone } from "@ant-design/icons";
-import { useState, useRef } from "react";
+import { BackTop, Tag } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useState, useRef, useEffect } from "react";
 import { useStorageContext } from "../my-hooks/StorageContext";
 
 //?
@@ -13,8 +13,6 @@ function magic(str) {
 		</Tag>
 	));
 }
-
-//?
 
 // todo
 export default function Mycards(props) {
@@ -28,6 +26,8 @@ export default function Mycards(props) {
 	//
 	const { id } = props;
 
+	console.log("mycard effect");
+
 	//
 	function submitHandler(e) {
 		e.preventDefault();
@@ -40,7 +40,7 @@ export default function Mycards(props) {
 
 		localStorage.setItem("cardsArr", JSON.stringify(lsRef.current.val));
 
-		// toggle();
+		toggle();
 		setState(false);
 	}
 
@@ -53,13 +53,30 @@ export default function Mycards(props) {
 			(el) => el.time === ind
 		);
 
-		console.log(lsRef.current.val, " ", lsRef.current.index);
 		setState(true);
+	}
+
+	//
+	function delHandler(id) {
+		let answer = window.confirm("Իրո՞ք ցանկանում եք փոստը հեռացնել։");
+		if (!answer) {
+			return;
+		}
+		lsRef.current.val = JSON.parse(localStorage.getItem("cardsArr"));
+		lsRef.current.index = lsRef.current.val.findIndex(
+			(el) => el.time === id
+		);
+		lsRef.current.val.splice(lsRef.current.index, 1);
+		localStorage.setItem("cardsArr", JSON.stringify(lsRef.current.val));
+
+		toggle();
 	}
 
 	//
 	return (
 		<>
+			<BackTop duration={50} />
+
 			{editmode ? (
 				<form
 					ref={formRef}
@@ -117,7 +134,16 @@ export default function Mycards(props) {
 				<div className="border border-ligth rounded p-3 my-2">
 					<p>
 						{magic(props.title)}
-
+						<DeleteOutlined
+							style={{
+								fontSize: "21px",
+								color: "#08c",
+								float: "right",
+								cursor: "pointer",
+								marginLeft: "20px",
+							}}
+							onClick={() => delHandler(id)}
+						/>
 						<EditOutlined
 							style={{
 								fontSize: "22px",

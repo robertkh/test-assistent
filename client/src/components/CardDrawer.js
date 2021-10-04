@@ -9,6 +9,7 @@ function CardDrawer(props) {
 	const formRef = useRef();
 	const [, /* storage */ toggle] = useStorageContext();
 
+	//
 	useEffect(() => {
 		const ls = localStorage.getItem("cardsArr");
 
@@ -58,17 +59,13 @@ function CardDrawer(props) {
 	//
 	return (
 		<div className="mb-4">
-			{/* <span className="mr-5">
-				Այստեղ ավելացնում ենք, ինչպես մոռացված, այնպես էլ ։
-			</span> */}
-			{/* <Button > */}
 			<Button
 				type="primary"
 				onClick={showDrawer}
 				block
 				className="mt-3 rounded"
 			>
-				Ավելացնել նոր նյութ
+				Ստեղծել նոր փոստ
 			</Button>
 
 			<Drawer
