@@ -27,9 +27,9 @@ export default function StrButtons() {
 	//
 	useEffect(() => {
 		if (localStorage.getItem("cardsArr")) {
-			setIs(false);
-		} else {
 			setIs(true);
+		} else {
+			setIs(false);
 		}
 
 		getLocalData();
