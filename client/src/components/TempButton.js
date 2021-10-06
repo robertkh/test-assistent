@@ -26,7 +26,10 @@ export default function StrButtons() {
 
 	//
 	useEffect(() => {
-		if (localStorage.getItem("cardsArr")) {
+		if (
+			localStorage.getItem("cardsArr") ||
+			JSON.parse(localStorage.getItem("cardsArr")).length
+		) {
 			setIs(true);
 		} else {
 			setIs(false);
