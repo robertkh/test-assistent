@@ -3,11 +3,10 @@ import CardDrawer from "./CardDrawer";
 import React, { useEffect, useRef } from "react";
 import HotTags from "./HotTags";
 import { useStorageContext } from "../my-hooks/StorageContext";
+import TempButton from "./TempButton";
 
 // todo
 export default function Assistent() {
-	console.log("assistent render");
-
 	//
 	const [storage, toggle] = useStorageContext();
 	const storageRef = useRef();
@@ -16,6 +15,7 @@ export default function Assistent() {
 	//
 	return (
 		<>
+			<TempButton />
 			<div className="mb-4">
 				<CardDrawer st={storageRef} />
 			</div>

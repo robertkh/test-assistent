@@ -119,6 +119,7 @@ function CardDrawer(props) {
 							name="img"
 						/>
 					</div>
+
 					<button
 						type="submit"
 						onClick={onClose}
