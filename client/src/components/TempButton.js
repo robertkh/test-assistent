@@ -27,7 +27,7 @@ export default function StrButtons() {
 	//
 	useEffect(() => {
 		if (
-			localStorage.getItem("cardsArr") ||
+			localStorage.getItem("cardsArr") &&
 			JSON.parse(localStorage.getItem("cardsArr")).length
 		) {
 			setIs(true);
@@ -40,10 +40,10 @@ export default function StrButtons() {
 
 	function clickHandler() {
 		if (is) {
-			localStorage.setItem("cardsArr", JSON.stringify(storage));
-		} else {
-			// localStorage.removeItem("cardsArr");
 			localStorage.setItem("cardsArr", JSON.stringify([]));
+		} else {
+			localStorage.setItem("cardsArr", JSON.stringify(storage));
+			// localStorage.removeItem("cardsArr");
 		}
 		setIs((pr) => !pr);
 		toggle();
