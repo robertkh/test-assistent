@@ -4,7 +4,7 @@ import { useStorageContext } from "../my-hooks/StorageContext";
 // todo
 export default function StrButtons() {
 	//
-	const [is, setIs] = useState();
+	const [is, setIs] = useState(false);
 	const [storage, setStorage] = useState();
 	const [st, toggle] = useStorageContext();
 
