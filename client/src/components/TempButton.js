@@ -52,7 +52,7 @@ export default function StrButtons() {
 			className="btn btn-primary btn-block"
 			onClick={clickHandler}
 		>
-			{!is
+			{is
 				? "Հեռացնել ուսուցողական տվյալները։"
 				: "Տեղադրել ուսուցողական տվյալները։"}
 		</button>

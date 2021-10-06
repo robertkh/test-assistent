@@ -115,7 +115,7 @@ function CardDrawer(props) {
 						<input
 							type="text"
 							className="form-control"
-							placeholder="Այստեղ նյութի ինտերնետային հասցեն․․․"
+							placeholder="Այստեղ նկար-ֆայլի անունը․․․"
 							name="img"
 						/>
 					</div>
