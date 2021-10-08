@@ -3,76 +3,71 @@ import React, { useState } from "react";
 import { useFileUpload } from "use-file-upload";
 import { FaFolderOpen } from "react-icons/fa";
 import ReactTooltip from "react-tooltip";
-// import { Link } from "react-router-dom";
-// import { useLng } from "../context/LngContext";
 import _ from "lodash";
 
 // todo
-export default function FileUpload({ disp }) {
+export default function FileUpload() {
 	const [myFile, selectFile] = useFileUpload();
 	const [isValid, setIsValid] = useState(false);
-	// const strings = useLng();
 
 	return (
-		<div className="mt-4">
+		<div className="my-4">
 			<div
-				className="row border-warning  py-4"
+				className="row border-warning  py-3"
 				style={{ borderTop: "3px solid" }}
 			>
-				{myFile && (
-					<div className="col-1">
-						<img
-							// src={myFile?.source || "Phold.png"}
-							alt=""
-							src={myFile?.source}
-							height="38px"
-							data-tip
-							data-for="custom-img"
-						/>
-
-						<ReactTooltip
-							id="custom-img"
-							type="warning"
-							effect="solid"
-							place="bottom"
-						>
-							<span>Show happy face</span>
+				<div className="col-2">
+					{myFile && (
+						<div>
 							<img
 								// src={myFile?.source || "Phold.png"}
 								alt=""
 								src={myFile?.source}
-								width="200"
+								height="30px"
+								width="100px"
+								data-tip
+								data-for="custom-img"
 							/>
-						</ReactTooltip>
-					</div>
-				)}
-
-				<div className="col-8 mt-1">
-					{
-						myFile ? (
-							<div>
-								<span> Name: </span>
-								<span className="text-primary">
-									{" "}
-									{myFile.name}{" "}
-								</span>
-								<span className="ml-2">Size: </span>
-								<span className="text-primary">
-									{Math.ceil(myFile.size / 1000)} KB
-								</span>
-							</div>
-						) : (
-							<span>coment</span>
-						)
-						// <span>
-						// 	{strings.tab5_8} ( {strings.tab5_9} 100KB )
-						// </span>
-					}
+							<ReactTooltip
+								id="custom-img"
+								type="warning"
+								effect="solid"
+								place="bottom"
+							>
+								{/* <span>Show happy face</span> */}
+								<img
+									// src={myFile?.source || "Phold.png"}
+									alt=""
+									src={myFile?.source}
+									height="300"
+								/>
+							</ReactTooltip>{" "}
+						</div>
+					)}
 				</div>
 
-				<div className={myFile ? "col-3" : "col-4"}>
+				<div className="col-7 mt-1 text">
+					{myFile ? (
+						<div>
+							<span> Name: </span>
+							<span className="text-primary">
+								{" "}
+								{myFile.name}{" "}
+							</span>
+							<span className="ml-2">Size: </span>
+							<span className="text-primary">
+								{Math.ceil(myFile.size / 1000)} KB
+							</span>
+						</div>
+					) : (
+						<span>Ընտրեք նկարը ( առավելագույն չափը: 100KB ) </span>
+					)}
+				</div>
+
+				<div className="col-3">
 					<button
-						className="btn btn-info ml-1 float-right"
+						style={{ float: "right" }}
+						className="btn btn-success btn-sm ml-1 "
 						onClick={(e) => {
 							selectFile(
 								{ accept: "image/*" },
@@ -84,46 +79,38 @@ export default function FileUpload({ disp }) {
 										file.type !== "image/png"
 									) {
 										setIsValid(false);
-										disp({
-											show: true,
-											isSuccess: false,
-											msg: "Ընտրված ֆայլը նկար չէ։",
-										});
+
 										return;
 									}
 									if (size > 100000) {
-										disp({
-											show: true,
-											isSuccess: false,
-											msg: "Ընտրված ֆայլի ծավալը մեծ է 100KB։",
-										});
 										setIsValid(false);
 										return;
 									}
 
 									setIsValid(true);
-									disp({ ...StaticRange, show: false });
+
 									// Todo: Upload to cloud.
 								}
 							);
 						}}
 					>
-						<FaFolderOpen />
-						sometext
-						{/* {myFile ? strings.tab5_6b : strings.tab5_6a} */}
+						<FaFolderOpen className="mx-1" />
+						{myFile ? "Փոխել" : "Ընտրել"}
 					</button>
 				</div>
 			</div>
+
 			<div className="pt-2">
 				<button
-					className="btn btn-block btn-success float-right"
+					type="button"
+					class="btn btn-block  btn-secondary"
 					disabled={!isValid}
-					onClick={() =>
-						handleImageUpload(myFile.file, disp, setIsValid)
-					}
+					style={{
+						width: "100%",
+					}}
+					onClick={() => handleImageUpload(myFile.file, setIsValid)}
 				>
-					text...
-					{/* {strings.tab5_7} */}
+					Վերբեռնել
 				</button>
 			</div>
 		</div>
@@ -131,7 +118,7 @@ export default function FileUpload({ disp }) {
 }
 
 // todo
-function handleImageUpload(file, disp, set) {
+function handleImageUpload(file, set) {
 	const formData = new FormData();
 	let newFileName = file.name.split(".");
 	newFileName =
@@ -149,20 +136,7 @@ function handleImageUpload(file, disp, set) {
 	})
 		.then((response) => response.json())
 		.then((result) => {
-			const str = (
-				<span>
-					{" "}
-					{result}
-					{/* <Link to="/admin/store" className="font-italic ml-4">
-						Վերադառնալ պահեստ
-					</Link> */}
-				</span>
-			);
-			disp({
-				show: true,
-				isSuccess: true,
-				msg: str,
-			});
+			const str = <span> {result}</span>;
 
 			set(false);
 		})

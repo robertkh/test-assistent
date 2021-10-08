@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Drawer } from "antd";
 import { useStorageContext } from "../my-hooks/StorageContext";
+import FileUpload from "./FileUpload";
 
 // todo
 function CardDrawer(props) {
@@ -128,6 +129,9 @@ function CardDrawer(props) {
 						Հաստատել
 					</button>
 				</form>
+				<div className="w-100">
+					<FileUpload />
+				</div>
 			</Drawer>
 		</div>
 	);

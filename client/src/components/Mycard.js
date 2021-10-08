@@ -2,7 +2,12 @@
 import { BackTop, Tag } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useState, useRef, useEffect } from "react";
-import { useStorageContext } from "../my-hooks/StorageContext";
+import { useStorageContext } from "../my-hooks/StorageContext"; //
+//
+import moment from "moment";
+import "moment/min/locales";
+moment.locale("hy-am");
+//
 
 //?
 function magic(str) {
@@ -133,7 +138,10 @@ export default function Mycards(props) {
 			) : (
 				<div className="border border-ligth rounded p-3 my-2">
 					<p>
-						{magic(props.title)}
+						{magic(props.title)}{" "}
+						<Tag color="magenta">
+							{moment(props.id).format("L")}
+						</Tag>
 						<DeleteOutlined
 							style={{
 								fontSize: "21px",
@@ -156,7 +164,9 @@ export default function Mycards(props) {
 					</p>
 
 					<p>
-						<a href={props.href}>{props.href}</a>
+						<a href={props.href} target="_blank">
+							{props.href}
+						</a>
 					</p>
 
 					<img
