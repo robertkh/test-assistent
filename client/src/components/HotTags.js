@@ -62,11 +62,10 @@ export default function HotTags(props) {
 	const [storage, toggle] = useStorageContext();
 
 	//
-	const lsArr = props.ls;
+	const lsArr = props.ls.sort((el1, el2) => el2.time - el1.time);
+	console.log(lsArr);
 	const blogMakerArr = [];
 	let newSetArr = [];
-
-	console.log("hottags effect");
 
 	//
 	newSetArr = makeSet(state.selected, lsArr, blogMakerArr);

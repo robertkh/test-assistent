@@ -31,8 +31,6 @@ export default function Mycards(props) {
 	//
 	const { id } = props;
 
-	console.log("mycard effect");
-
 	//
 	function submitHandler(e) {
 		e.preventDefault();

@@ -9,6 +9,8 @@ import _ from "lodash";
 export default function FileUpload() {
 	const [myFile, selectFile] = useFileUpload();
 	const [isValid, setIsValid] = useState(false);
+	console.log(myFile);
+	console.log(myFile?.naturalWidth);
 
 	return (
 		<div className="my-4">
@@ -60,7 +62,7 @@ export default function FileUpload() {
 							</span>
 						</div>
 					) : (
-						<span>Ընտրեք նկարը ( առավելագույն չափը: 100KB ) </span>
+						<span>Ընտրեք նկարը ( առավելագույն չափը: 300KB ) </span>
 					)}
 				</div>
 
@@ -82,7 +84,7 @@ export default function FileUpload() {
 
 										return;
 									}
-									if (size > 100000) {
+									if (size > 300000) {
 										setIsValid(false);
 										return;
 									}
