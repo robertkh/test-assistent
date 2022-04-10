@@ -1,6 +1,6 @@
 // todo
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, Affix } from "antd";
 import { useStorageContext } from "../my-hooks/StorageContext";
 import FileUpload from "./FileUpload";
 
@@ -60,14 +60,16 @@ function CardDrawer(props) {
 	//
 	return (
 		<div className="mb-4">
-			<Button
-				type="primary"
-				onClick={showDrawer}
-				block
-				className="mt-3 rounded"
-			>
-				Ստեղծել նոր փոստ
-			</Button>
+			<Affix offsetTop={-15}>
+				<Button
+					type="primary"
+					onClick={showDrawer}
+					block
+					className="mt-3 rounded"
+				>
+					Ստեղծել նոր փոստ
+				</Button>
+			</Affix>
 
 			<Drawer
 				title="Ավելացնել նոր թեմա"

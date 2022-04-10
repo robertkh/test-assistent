@@ -11,11 +11,11 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-    "react-json-csv": "^2.0.0",
-    "react-json-to-csv": "^1.0.4",
     "react-scripts": "4.0.3",
     "react-tooltip": "^4.2.21",
     "reactstrap": "^8.10.0",
+    "read-chunk": "^4.0.2",
+    "save-file": "^2.3.1",
     "use-file-upload": "^1.0.11",
     "web-vitals": "^1.1.2"
   },

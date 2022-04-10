@@ -1,5 +1,5 @@
 // todo
-import { Divider, Tag } from "antd";
+import { Divider, Tag, Badge } from "antd";
 import { useState, useEffect } from "react";
 import { Collapse } from "reactstrap";
 import Mycards from "./Mycard";
@@ -13,7 +13,7 @@ const { CheckableTag } = Tag;
 const tagsData = [
 	"html",
 	"css",
-	"javascript",
+	"js",
 	"mongodb",
 	"express",
 	"react",
@@ -22,6 +22,8 @@ const tagsData = [
 	"npm",
 	"heroku",
 	"linux",
+	"sql",
+	"http",
 ];
 
 //?
@@ -46,12 +48,14 @@ function makeSet(checkedArr, lsArr, blogMakerArr) {
 			blogMakerArr.push(lsArr[i]);
 		}
 	}
-
+	console.log(blogMakerArr);
 	const tagsSet = new Set(tagsSetMakerArr);
+	console.log(tagsSet);
 
 	for (let j = 0; j < checkedArr.length; j++) {
 		tagsSet.delete(checkedArr[j]);
 	}
+
 	return Array.from(tagsSet);
 }
 
@@ -63,7 +67,6 @@ export default function HotTags(props) {
 
 	//
 	const lsArr = props.ls.sort((el1, el2) => el2.time - el1.time);
-	console.log(lsArr);
 	const blogMakerArr = [];
 	let newSetArr = [];
 
@@ -86,6 +89,7 @@ export default function HotTags(props) {
 
 	//
 	const { selected } = state;
+	let ch = "";
 
 	return (
 		<>
@@ -115,15 +119,26 @@ export default function HotTags(props) {
 				</Divider>
 
 				{newSetArr.sort().map((tag) => (
-					<CheckableTag
-						key={tag}
-						checked={selected.indexOf(tag) > -1}
-						onChange={(checked) => {
-							handleChange(tag, checked);
-						}}
-					>
-						{tag}
-					</CheckableTag>
+					<>
+						{ch === tag[0].toUpperCase() ? (
+							""
+						) : (
+							<Badge
+								count={(ch = tag[0].toUpperCase())}
+								style={{ backgroundColor: "#52c41a" }}
+							/>
+						)}
+
+						<CheckableTag
+							key={tag}
+							checked={selected.indexOf(tag) > -1}
+							onChange={(checked) => {
+								handleChange(tag, checked);
+							}}
+						>
+							{tag}
+						</CheckableTag>
+					</>
 				))}
 			</div>
 
